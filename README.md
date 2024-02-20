@@ -10,4 +10,3 @@ To prevent overrides of the code by students, the **Stack** repository should ha
 To configure autograding, edit `.github/classroom/autograding.json` in the **Stack** repository (**not** the **Stack_AutoTest** repository). This file defines the tests to run and the points for each test.  The first step in this file performs the clone of the **Stack_AutoTest** into the test environment.  As such, the first step should have `"points": 0` in the definition.  The remaining steps execute the actual tests.
 
 **Make sure to create `AutoTest_main_output.txt` by executing the solution `main`.**  
-
