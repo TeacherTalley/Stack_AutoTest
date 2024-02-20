@@ -1,0 +1,79 @@
+Welcome to the Stack and Queue test program.
+
+Test some integer stacks...
+Integer stack 1 (via print): 5 30 20 10
+Integer stack 1 (via iterators): 5 30 20 10 
+Top element: 5
+Pop: 5
+Integer stack 1: 30 20 10
+Pop: 30
+Integer stack 1: 20 10
+Length of stack 1 is 2
+Stack 1 is not empty
+Pop: 20
+Pop: 10
+Integer stack 1 (via toString)::
+Stack 1 is empty
+
+Refill integer stack 1.
+Integer stack 1: 30 20 10
+Copy integer stack 1 to integer stack 2 (via constructor).
+Integer stack 2: 30 20 10
+Copy integer stack 1 to integer stack 2 (via assignment).
+Integer stack 2: 30 20 10
+Pop 2 elements off the top of integer stack 1.
+Integer stack 1:10:
+Integer stack 2:30 20 10:
+Integer stack 2 (via std cout): 30 20 10:
+
+Test some exceptions...
+Stack 1 is empty
+Top element: 
+Exception: Stack is empty
+Pop element: 
+Exception: Stack is empty
+
+Test some string stacks...
+String stack 1: Please, may I have some spam?
+String stack 1: have some spam?
+String stack 1: some spam?
+
+Test some integer queues...
+Integer queue 1 (via print): 10 20 30 5
+Integer queue 1 (via iterators): 10 20 30 5 
+Front element: 10
+Dequeue: 10
+Integer queue 1: 20 30 5
+Dequeue: 20
+Integer queue 1: 30 5
+Length of queue 1 is 2
+Queue 1 is not empty
+Dequeue: 30
+Dequeue: 5
+Integer queue 1 (via toString)::
+Queue 1 is empty
+
+Refill integer queue 1.
+Integer queue 1: 10 20 30
+Copy integer queue 1 to integer queue 2 (via constructor).
+Integer queue 2: 10 20 30
+Copy integer queue 1 to integer queue 2 (via assignment).
+Integer queue 2: 10 20 30
+Dequeue 2 elements off the front of integer queue 2.
+Integer queue 1:30:
+Integer queue 2:10 20 30:
+Integer queue 2 via std cout: 10 20 30:
+
+Test some exceptions...
+Queue 1 is empty
+Front element: 
+Exception: Queue is empty
+Dequeue element: 
+Exception: Queue is empty
+
+Test some string queues...
+String queue 1: Please, may I have some spam?
+String queue 1: have some spam?
+String queue 1: some spam?
+
+Goodbye!
