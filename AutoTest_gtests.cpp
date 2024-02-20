@@ -13,12 +13,11 @@
 
 #include <iostream>
 #include <string>
-#include <algorithm>
+
 #include <gtest/gtest.h>
 
 #include "Stack.h"
 #include "Queue.h"
-
 
 // String trim functions - std::str does not have a built-in trim function
 // see: https://stackoverflow.com/questions/216823/how-to-trim-a-stdstring
@@ -164,8 +163,8 @@ TEST(StackTest, Print)
     testing::internal::CaptureStdout();
     s.print();
     std::string output = testing::internal::GetCapturedStdout();
-    // EXPECT_EQ(output, "3 2 1\n");
-    EXPECT_EQ(trim_copy(output), "3 2 1");
+    EXPECT_EQ(output, "3\n2\n1\n");
+    // EXPECT_EQ(trim_copy(output), "3 2 1");
 } 
 
 TEST(StackTest, CopyConstructor)
@@ -183,6 +182,45 @@ TEST(StackTest, CopyConstructor)
     }
 }
 
+TEST(StackTest, SaveRestore)
+{
+    Stack<int> s1;
+    const std::string filename = "stack.txt";
+    s1.push(1);
+    s1.push(2);
+    s1.push(3);
+    s1.save(filename);
+    Stack<int> s2;
+    s2.restore(filename);
+    EXPECT_EQ(s2.size(), s1.size());
+    while (!s1.empty())
+    {
+        EXPECT_EQ(s1.top(), s2.top());
+        s1.pop();
+        s2.pop();
+    }
+    std::remove(filename.c_str());
+
+    Stack<std::string> ss1;
+    ss1.push("A B C");
+    EXPECT_EQ(ss1.top(), "A B C");
+    ss1.push("D E F");
+    EXPECT_EQ(ss1.top(), "D E F");
+    ss1.push("G");
+    EXPECT_EQ(ss1.top(), "G");
+    EXPECT_EQ(ss1.size(), 3);
+    ss1.save(filename);
+    Stack<std::string> ss2;
+    ss2.restore(filename);
+    EXPECT_EQ(ss2.size(), ss1.size());
+    while (!ss1.empty())
+    {
+        EXPECT_EQ(ss1.top(), ss2.top());
+        ss1.pop();
+        ss2.pop();
+    }
+    std::remove(filename.c_str());
+}
 
 // Queue tests
 
@@ -279,8 +317,8 @@ TEST(QueueTest, Print)
     testing::internal::CaptureStdout();
     q.print();
     std::string output = testing::internal::GetCapturedStdout();
-    // EXPECT_EQ(output, "1 2 3\n");
-    EXPECT_EQ(trim_copy(output), "1 2 3");
+    EXPECT_EQ(output, "1\n2\n3\n");
+    // EXPECT_EQ(trim_copy(output), "1 2 3");
 }
 
 TEST(QueueTest, CopyConstructor)
@@ -294,3 +332,42 @@ TEST(QueueTest, CopyConstructor)
     EXPECT_EQ(queue2.front(), 2);
 }
 
+TEST(QueueTest, SaveRestore)
+{
+    Queue<int> q1;
+    const std::string filename = "queue.txt";
+    q1.enqueue(1);
+    q1.enqueue(2);
+    q1.enqueue(3);
+    q1.save(filename);
+    Queue<int> q2;
+    q2.restore(filename);
+    EXPECT_EQ(q2.size(), q1.size());
+    while (!q1.empty())
+    {
+        EXPECT_EQ(q1.front(), q2.front());
+        q1.dequeue();
+        q2.dequeue();
+    }
+    std::remove(filename.c_str());
+
+    Queue<std::string> sq1;
+    sq1.enqueue("A B C");
+    EXPECT_EQ(sq1.front(), "A B C");
+    sq1.enqueue("D E F");
+    EXPECT_EQ(sq1.front(), "A B C");
+    sq1.enqueue("G");
+    EXPECT_EQ(sq1.front(), "A B C");
+    EXPECT_EQ(sq1.size(), 3);
+    sq1.save(filename);
+    Queue<std::string> ss2;
+    ss2.restore(filename);
+    EXPECT_EQ(ss2.size(), sq1.size());
+    while (!sq1.empty())
+    {
+        EXPECT_EQ(sq1.front(), ss2.front());
+        sq1.dequeue();
+        ss2.dequeue();
+    }
+    std::remove(filename.c_str());
+}

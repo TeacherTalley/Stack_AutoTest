@@ -5,7 +5,7 @@
 
 # VS Code ignores
 .vscode
-*.dSYM
+*.dSYM*
 build
 .DS_Store
 ~$*

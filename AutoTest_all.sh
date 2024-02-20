@@ -29,6 +29,7 @@ echo "--- Unit testing (single test at a time) ---"
 ./AutoTest_gtests --gtest_filter=StackTest.ToString
 ./AutoTest_gtests --gtest_filter=StackTest.Print
 ./AutoTest_gtests --gtest_filter=StackTest.CopyConstructor
+./AutoTest_gtests --gtest_filter=StackTest.SaveRestore
 
 ./AutoTest_gtests --gtest_filter=QueueTest.Empty
 ./AutoTest_gtests --gtest_filter=QueueTest.Size
@@ -40,6 +41,7 @@ echo "--- Unit testing (single test at a time) ---"
 ./AutoTest_gtests --gtest_filter=QueueTest.ToString
 ./AutoTest_gtests --gtest_filter=QueueTest.Print
 ./AutoTest_gtests --gtest_filter=QueueTest.CopyConstructor
+./AutoTest_gtests --gtest_filter=QueueTest.SaveRestore
 
 echo
 cd ..
