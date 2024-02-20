@@ -8,6 +8,7 @@
 *.dSYM
 build
 .DS_Store
+~$*
 
 # generated executables
 main
