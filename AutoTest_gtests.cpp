@@ -13,11 +13,12 @@
 
 #include <iostream>
 #include <string>
-
+#include <algorithm>
 #include <gtest/gtest.h>
 
 #include "Stack.h"
 #include "Queue.h"
+
 
 // String trim functions - std::str does not have a built-in trim function
 // see: https://stackoverflow.com/questions/216823/how-to-trim-a-stdstring
