@@ -19,6 +19,8 @@
 #include "Stack.h"
 #include "Queue.h"
 
+#define GTEST_COUT std::cerr << "[          ] [ INFO ]"
+
 // String trim functions - std::str does not have a built-in trim function
 // see: https://stackoverflow.com/questions/216823/how-to-trim-a-stdstring
 // trim from start (in place)
@@ -189,10 +191,17 @@ TEST(StackTest, SaveRestore)
     const std::string filename = "stack.txt";
     int elements = 3;
 
+    std::string message = " ";
+
+    message = " Persist Stack (int)";
+    GTEST_COUT << message << std::endl;
     s1.push(1);
     s1.push(2);
     s1.push(3);
     s1.save(filename);
+ 
+    message = " Restore Stack and verify elements";
+    GTEST_COUT << message << std::endl;
     Stack<int> s2;
     s2.restore(filename);
     EXPECT_EQ(s2.size(), elements);
@@ -204,6 +213,8 @@ TEST(StackTest, SaveRestore)
     }
     std::remove(filename.c_str());
 
+    message = " Persist Stack (string)";
+    GTEST_COUT << message << std::endl;
     Stack<std::string> ss1;
     ss1.push("A B C");
     EXPECT_EQ(ss1.top(), "A B C");
@@ -215,6 +226,9 @@ TEST(StackTest, SaveRestore)
 
     EXPECT_EQ(ss1.size(), elements);
     ss1.save(filename);
+
+    message = " Restore Stack and verify elements";
+    GTEST_COUT << message << std::endl;
     Stack<std::string> ss2;
     ss2.restore(filename);
     EXPECT_EQ(ss2.size(), elements);
@@ -258,6 +272,10 @@ TEST(QueueTest, Front)
     EXPECT_EQ(q.front(), 1);
     q.enqueue(2);
     EXPECT_EQ(q.front(), 1);
+    EXPECT_EQ(q.size(), 2);
+    q.dequeue();
+    EXPECT_EQ(q.front(), 2);
+    EXPECT_EQ(q.size(), 1);
 }
 
 TEST(QueueTest, FrontEmptyQueue)
@@ -274,6 +292,9 @@ TEST(QueueTest, Enqueue)
     q.enqueue(2);
     EXPECT_EQ(q.front(), 1);
     EXPECT_EQ(q.size(), 2);
+    q.dequeue();
+    EXPECT_EQ(q.front(), 2);
+    EXPECT_EQ(q.size(), 1);
 }
 
 TEST(QueueTest, Dequeue)
@@ -343,11 +364,18 @@ TEST(QueueTest, SaveRestore)
     const std::string filename = "queue.txt";
     int elements = 3;
 
+    std::string message = " ";
+
+    message = " Persist Queue";
+    GTEST_COUT << message << std::endl;
     q1.enqueue(1);
     q1.enqueue(2);
     q1.enqueue(3);
     q1.save(filename);
     Queue<int> q2;
+
+    message = " Restore Queue and verify elements";
+    GTEST_COUT << message << std::endl;
     q2.restore(filename);
     EXPECT_EQ(q2.size(), elements);
     for (int i = 0; i < elements; i++)
@@ -358,6 +386,8 @@ TEST(QueueTest, SaveRestore)
         }
     std::remove(filename.c_str());
 
+    message = " Persist Queue<std::string> with 3 elements";
+    GTEST_COUT << message << std::endl;
     Queue<std::string> sq1;
     sq1.enqueue("A B C");
     EXPECT_EQ(sq1.front(), "A B C");
@@ -369,6 +399,9 @@ TEST(QueueTest, SaveRestore)
 
     EXPECT_EQ(sq1.size(), elements);
     sq1.save(filename);
+
+    message = " Restore Queue and verify elements";
+    GTEST_COUT << message << std::endl;
     Queue<std::string> ss2;
     ss2.restore(filename);
     EXPECT_EQ(ss2.size(), elements);
