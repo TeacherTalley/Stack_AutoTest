@@ -4,18 +4,39 @@
 # Programmer: Michelle Talley
 # Copyright 2024 Michelle Talley University of Central Arkansas
 #--------------------------------------------------------------------------
+
+# force color output in test harnesses
+# if using a terminal that does not support color, you can disable color output 
+# by setting the following FORCE_COLOR and CLICOLOR_FORCE environment variables to 0
+# Classroom 50 JSON auto-grading environment does not support color output, 
+# so we disable it here.
+export FORCE_COLOR=0
+export CLICOLOR_FORCE=0
+
+# Test FORCE_COLOR and set color variables accordingly
+# See: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+if [ "$FORCE_COLOR" = "1" ]; then
+  red="\033[31m"
+  green="\033[32m"
+  blue="\033[34m"
+  reset="\033[0m"
+else
+  red=""
+  green=""
+  blue=""
+  reset=""
+  fi
+
+# force color output in test harnesses
+export FORCE_COLOR=1
+export CLICOLOR_FORCE=1
+
 build_dir=$1
 if [ -z "$build_dir" ]; then
   echo "Error: Build directory parameter is missing."
   exit 1
 fi
 cd $build_dir
-
-# See: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
-red="\033[31m"
-blue="\033[34m"
-green="\033[32m"
-reset="\033[0m"
 
 printf "${green}[==========]${reset}\n"
 printf "${green}[ RUN      ] 'main' in build directory ${build_dir}${reset}\n"
@@ -39,12 +60,12 @@ else
 fi
 
 if [ $main_rc -ne 0 ]; then
-  printf "${red}[==========]${reset}\n"
-  printf "${red}[  FAILED  ] 'main' failed ${reason}${reset}\n"
-  printf "${red}[==========]${reset}\n"
+  printf "${red}[===========]${reset}\n"
+  printf "${red}[ ❌ FAILED ] 'main' failed ${reason}${reset}\n"
+  printf "${red}[===========]${reset}\n"
 else
-  printf "${green}[==========]${reset}\n"
-  printf "${green}[  PASSED  ] 'main' executed successfully${reset}\n"
+  printf "${green}[===========]${reset}\n"
+  printf "${green}[ ✅ PASSED ] 'main' executed successfully${reset}\n"
   printf "${green}[==========]${reset}\n"
 fi
 
@@ -58,13 +79,13 @@ diff $diffopts ../AutoTest_main_output.txt test_main_output.txt
 diff_rc=$?
 
 if [ $diff_rc -ne 0 ]; then
-  printf "${red}[==========]${reset}\n"
-  printf "${red}[  FAILED  ] 'main' output does not match expected${reset}\n"
+  printf "${red}[===========]${reset}\n"
+  printf "${red}[ ❌ FAILED  ] 'main' output does not match expected${reset}\n"
   printf "${red}[==========]${reset}\n"
 else
-  printf "${green}[==========]${reset}\n"
-  printf "${green}[  PASSED  ] 'main' output matches expected${reset}\n"
-  printf "${green}[==========]${reset}\n"
+  printf "${green}[===========]${reset}\n"
+  printf "${green}[ ✅ PASSED  ] 'main' output matches expected${reset}\n"
+  printf "${green}[===========]${reset}\n"
 fi
 
 if [ $main_rc -ne 0 ]; then
